@@ -1,0 +1,15 @@
+.list-container {
+    margin: 0 auto;
+    max-width: 50%;
+}
+
+.search-block {
+    padding: 0 16px;
+    margin-bottom: 20px;
+}
+
+@media (max-width:768px) {
+    .list-container {
+        max-width: 100%;
+    }
+}
