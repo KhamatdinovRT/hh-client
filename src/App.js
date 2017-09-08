@@ -1,28 +1,35 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import {loadVacancies} from './actions';
+import {fetchVacancies, searchText} from './actions';
 import VacanciesList from './VacanciesList';
+import CircularProgress from 'material-ui/CircularProgress';
+import SearchBar from './SearchBar';
 import './App.css';
 
 class App extends Component {
-  componentDidMount() {
-    fetch('https://api.hh.ru/vacancies?per_page=50').then(
-      response=> response.json()
-    ).then (
-      json => this.props.loadVacancies(json.items)
-    )
-  }
+    componentDidMount() {
+        this.props.fetchVacancies('https://api.hh.ru/vacancies?per_page=50')
+    }
   render() {
-    return (
-      <main>
-        <VacanciesList vacancies={this.props.vacancies}/>
-      </main>
-    );
+        return (
+            <main className="list-container">
+                <SearchBar searchText={this.props.searchText}/>
+                {this.props.isLoading ?     
+                    <CircularProgress style={{margin:'0 auto'}} color={'black'} size={60} thickness={7} />
+                :   
+                    <VacanciesList vacancies={this.props.vacancies}/>
+                }
+            </main>
+        )
   }
 }
 
 const mapStateToProps = (state) => ({
-  vacancies: state.vacancies
+    vacancies: state.vacancies.filter(vacancy => {
+        const validText = state.searchText.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&')
+        return vacancy.name.search(new RegExp(validText, 'gi'))>=0
+    }),
+    isLoading: state.isLoading
 })
 
-export default connect(mapStateToProps, {loadVacancies}) (App);
+export default connect(mapStateToProps, {fetchVacancies, searchText}) (App);

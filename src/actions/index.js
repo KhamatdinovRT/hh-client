@@ -1,12 +1,36 @@
-export const LOAD_VACANCIES = 'LOAD_VACANCIES';
-export const SEARH_TEXT = 'SEARH_TEXT';
+export const RECIEVE_VACANCIES = 'RECIEVE_VACANCIES';
+export const SEARCH_TEXT = 'SEARCH_TEXT';
+export const LOADING_STARTED = 'LOADING_STARTED';
+export const LOADING_ENDED = 'LOADING_ENDED';
 
-export const loadVacancies = (vacancies) => ({
-    type:LOAD_VACANCIES, 
+export const recieveVacancies = (vacancies) => ({
+    type:RECIEVE_VACANCIES, 
     vacancies
 })
 
+export const loadingStarted = () => ({
+    type: LOADING_STARTED
+})
+
+export const loadingEnded = () => ({
+    type: LOADING_ENDED
+})
+
 export const searchText = (text) => ({
-    type:SEARH_TEXT, 
+    type:SEARCH_TEXT, 
     text
 })
+
+export const fetchVacancies = (url) => dispatch=> {
+    // return (dispatch) => {
+        dispatch(loadingStarted())
+        fetch('https://api.hh.ru/vacancies?per_page=50').then(
+                response=> response.json()
+          ).then (
+                json => {
+                    dispatch(recieveVacancies(json.items)),
+                    setTimeout(() => dispatch(loadingEnded()), 500)
+                }
+          )
+    
+}

@@ -1,14 +1,18 @@
 import { combineReducers } from 'redux';
-import { LOAD_VACANCIES, SEARH_TEXT } from '../actions';
+import { 
+    RECIEVE_VACANCIES, 
+    SEARCH_TEXT, 
+    LOADING_STARTED } from '../actions';
 
 const initialState = {
     vacancies: [],
+    isLoading: false,
     searchText: ""
   }
 
 export const vacancies = (state = initialState.vacancies, action) => {
     switch (action.type) {
-      case LOAD_VACANCIES:
+      case RECIEVE_VACANCIES:
         return action.vacancies.map((vacancy) => {
             return ({
                 name: vacancy.name,
@@ -24,9 +28,20 @@ export const vacancies = (state = initialState.vacancies, action) => {
     }
 }
 
+export const isLoading = (state = initialState.isLoading, action) => {
+    switch (action.type) {
+        case LOADING_STARTED:
+            return true
+        case 'LOADING_ENDED':
+            return false
+        default:
+            return state
+    }
+}
+
 const searchText = (state = initialState.searchText, action) => {
     switch (action.type) {
-        case SEARH_TEXT:
+        case SEARCH_TEXT:
             return action.text
         default:
             return state
@@ -35,5 +50,6 @@ const searchText = (state = initialState.searchText, action) => {
 
 export default combineReducers({
     vacancies,
+    isLoading,
     searchText
 })

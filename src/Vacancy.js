@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
-import {connect} from 'react-redux';
+import React from 'react';
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 
-const Vacancie = ({name, area, img, employer, salary, responsibility}) => {
+const Vacancy = ({name, area, img, employer, salary, responsibility}) => {
     const image = (
             <div style={{position:"absolute", top: '6px', right:'10px' }}>
                 <img style={{maxWidth:'90px', maxHeight: '67px'}} src={img}/>
@@ -11,6 +10,8 @@ const Vacancie = ({name, area, img, employer, salary, responsibility}) => {
     return (
         <Card style={{marginBottom:'10px'}}>
             <CardHeader
+                titleStyle={{fontSize:'17px'}}
+                subtitleStyle={{marginTop:'10px',fontSize:'16px'}}
                 title={name}
                 subtitle="Subtitle"
                 children={image}
@@ -19,10 +20,10 @@ const Vacancie = ({name, area, img, employer, salary, responsibility}) => {
             />
             <CardText expandable={false}>
                 {responsibility}
-                <p>{area}</p>
+                <p style={{marginBottom:0}}>{`${area}, ${employer}`}</p>
             </CardText>
         </Card>
     )
 }
 
-export default Vacancie;
+export default Vacancy;
