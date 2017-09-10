@@ -13,7 +13,7 @@ const Vacancy = ({name, area, img, employer, salary, responsibility}) => {
                 titleStyle={{fontSize:'17px'}}
                 subtitleStyle={{marginTop:'10px',fontSize:'16px'}}
                 title={name}
-                subtitle="Subtitle"
+                subtitle={salary}
                 children={image}
                 actAsExpander={false}
                 showExpandableButton={false}

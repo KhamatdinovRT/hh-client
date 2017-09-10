@@ -8,7 +8,7 @@ const SearchBar = ({searchText}) => {
     }
 
     return (
-        <Paper className="search-block" zDepth={1}>
+        <div><Paper className="search-block" zDepth={1}>
             <TextField
                 hintText="Поиск вакансий"
                 fullWidth={true}
@@ -16,6 +16,7 @@ const SearchBar = ({searchText}) => {
                 onChange={handleChange}
             />
         </Paper>
+        </div>
     )
 }
 

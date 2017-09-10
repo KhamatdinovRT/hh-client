@@ -1,35 +1,22 @@
 import React, { Component } from 'react';
+import {Tabs, Tab} from 'material-ui/Tabs';
 import {connect} from 'react-redux';
-import {fetchVacancies, searchText} from './actions';
-import VacanciesList from './VacanciesList';
-import CircularProgress from 'material-ui/CircularProgress';
-import SearchBar from './SearchBar';
+import { Switch, Route, NavLink } from 'react-router-dom';
+import VacanciesContainer from './VacanciesContainer'
+import Header from './Header';
+import Statistics from './Statistics';
 import './App.css';
 
-class App extends Component {
-    componentDidMount() {
-        this.props.fetchVacancies('https://api.hh.ru/vacancies?per_page=50')
-    }
-  render() {
-        return (
-            <main className="list-container">
-                <SearchBar searchText={this.props.searchText}/>
-                {this.props.isLoading ?     
-                    <CircularProgress style={{margin:'0 auto'}} color={'black'} size={60} thickness={7} />
-                :   
-                    <VacanciesList vacancies={this.props.vacancies}/>
-                }
-            </main>
-        )
-  }
+const App = () => {
+    return (
+        <main className="app-container">
+            <Header/>
+            <Switch>
+                <Route exact path='/' component={VacanciesContainer}/>
+                <Route path="/statistics" component={Statistics}/>
+            </Switch>
+        </main>
+    )
 }
 
-const mapStateToProps = (state) => ({
-    vacancies: state.vacancies.filter(vacancy => {
-        const validText = state.searchText.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&')
-        return vacancy.name.search(new RegExp(validText, 'gi'))>=0
-    }),
-    isLoading: state.isLoading
-})
-
-export default connect(mapStateToProps, {fetchVacancies, searchText}) (App);
+export default App;

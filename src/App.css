@@ -2,13 +2,19 @@ main {
   padding: 15px;
 }
 
-.list-container {
+.app-container {
   margin: 0 auto;
   max-width: 50%;
+  margin-top: 64px; 
 }
 
 @media (max-width:768px) {
-  .list-container {
+  .app-container {
       max-width: 100%;
   }
+}
+
+h1 {
+  text-align: center;
+  color: #515151;
 }

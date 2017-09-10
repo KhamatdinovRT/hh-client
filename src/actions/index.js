@@ -22,15 +22,13 @@ export const searchText = (text) => ({
 })
 
 export const fetchVacancies = (url) => dispatch=> {
-    // return (dispatch) => {
         dispatch(loadingStarted())
-        fetch('https://api.hh.ru/vacancies?per_page=50').then(
-                response=> response.json()
-          ).then (
+        fetch(url)
+        .then(response => response.json())
+        .then (
                 json => {
                     dispatch(recieveVacancies(json.items)),
-                    setTimeout(() => dispatch(loadingEnded()), 500)
+                    setTimeout(() => dispatch(loadingEnded()), 200)
                 }
           )
-    
 }

@@ -14,18 +14,34 @@ export const vacancies = (state = initialState.vacancies, action) => {
     switch (action.type) {
       case RECIEVE_VACANCIES:
         return action.vacancies.map((vacancy) => {
+            const {salary, employer} = vacancy
             return ({
                 name: vacancy.name,
                 employer: vacancy.employer.name,
-                logo_urls: vacancy.employer.logo_urls,
+                img: employer.logo_urls? employer.logo_urls[90] : "",
                 area: vacancy.area.name,
-                salary: vacancy.salary,
+                salaryFrom: salary? salary.from : null,
+                salaryTo: salary? salary.to : null,
                 responsibility: vacancy.snippet.responsibility
             })
         })
       default:
         return state
     }
+}
+
+export const vacanciesByCity = (state={}, action) => {
+    switch (action.type) {
+        case RECIEVE_VACANCIES:
+            return action.vacancies.reduce((obj, item) => {
+                return {
+                     ...obj,
+                    [item.area.name] : (obj[item.area.name] || 0) + 1
+                }
+            }, {})
+        default:
+            return state
+    } 
 }
 
 export const isLoading = (state = initialState.isLoading, action) => {
@@ -51,5 +67,6 @@ const searchText = (state = initialState.searchText, action) => {
 export default combineReducers({
     vacancies,
     isLoading,
-    searchText
+    searchText,
+    vacanciesByCity
 })
