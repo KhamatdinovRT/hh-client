@@ -30,20 +30,6 @@ export const vacancies = (state = initialState.vacancies, action) => {
     }
 }
 
-export const vacanciesByCity = (state={}, action) => {
-    switch (action.type) {
-        case RECIEVE_VACANCIES:
-            return action.vacancies.reduce((obj, item) => {
-                return {
-                     ...obj,
-                    [item.area.name] : (obj[item.area.name] || 0) + 1
-                }
-            }, {})
-        default:
-            return state
-    } 
-}
-
 export const isLoading = (state = initialState.isLoading, action) => {
     switch (action.type) {
         case LOADING_STARTED:
@@ -67,6 +53,5 @@ const searchText = (state = initialState.searchText, action) => {
 export default combineReducers({
     vacancies,
     isLoading,
-    searchText,
-    vacanciesByCity
+    searchText
 })
