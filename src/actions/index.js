@@ -21,14 +21,14 @@ export const searchText = (text) => ({
     text
 })
 
-export const fetchVacancies = (url) => dispatch=> {
+export const fetchVacancies = () => dispatch=> {
         dispatch(loadingStarted())
-        fetch(url)
+        fetch('https://api.hh.ru/vacancies?per_page=50&only_with_salary=true&area=113')
         .then(response => response.json())
         .then (
                 json => {
-                    dispatch(recieveVacancies(json.items)),
-                    setTimeout(() => dispatch(loadingEnded()), 200)
+                    dispatch(recieveVacancies(json.items))
+                    dispatch(loadingEnded())
                 }
           )
 }

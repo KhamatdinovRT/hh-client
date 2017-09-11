@@ -1,10 +1,10 @@
 import React from 'react';
-import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
+import {Card, CardHeader, CardText} from 'material-ui/Card';
 
 const Vacancy = ({name, area, img, employer, salary, responsibility}) => {
     const image = (
             <div style={{position:"absolute", top: '6px', right:'10px' }}>
-                <img style={{maxWidth:'90px', maxHeight: '67px'}} src={img}/>
+                <img alt="" style={{maxWidth:'90px', maxHeight: '67px'}} src={img}/>
             </div>
         )
     return (

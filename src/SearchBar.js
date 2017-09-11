@@ -4,7 +4,7 @@ import TextField from 'material-ui/TextField';
 
 const SearchBar = ({searchText}) => {
     const handleChange = (e, newValue) => {
-        setTimeout(()=>searchText(newValue), 200)
+        setTimeout(() => searchText(newValue), 200)
     }
 
     return (

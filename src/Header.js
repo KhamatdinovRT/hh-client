@@ -1,5 +1,4 @@
 import React from 'react';
-import {connect} from 'react-redux';
 import {NavLink} from 'react-router-dom'
 import {Tabs, Tab} from 'material-ui/Tabs';
 import './Header.css';  
@@ -39,8 +38,8 @@ class Header extends React.Component {
   }
   render() {
     return <header className={this.state.scrolling ? 'header' + ' ' + 'header-scrolling ': 'header'}>
-              <Tabs tabTemplateStyle={{backgroundColor:'#fff'}}>
-                      <Tab containerElement={<NavLink to="/"></NavLink>} label="Главная"/>
+              <Tabs tabItemContainerStyle={{backgroundColor:'#3F51B5'}}>
+                      <Tab containerElement={<NavLink to="/"></NavLink>} label="Вакансии"/>
                       <Tab containerElement={<NavLink to="/statistics"></NavLink>} label="Статистика"/>
                   </Tabs>
           </header>

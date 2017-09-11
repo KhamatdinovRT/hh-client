@@ -1,22 +1,28 @@
 import React, { Component } from 'react';
-import {Tabs, Tab} from 'material-ui/Tabs';
 import {connect} from 'react-redux';
-import { Switch, Route, NavLink } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
+import {fetchVacancies} from './actions';
 import VacanciesContainer from './VacanciesContainer'
 import Header from './Header';
 import Statistics from './Statistics';
 import './App.css';
 
-const App = () => {
-    return (
-        <main className="app-container">
-            <Header/>
-            <Switch>
-                <Route exact path='/' component={VacanciesContainer}/>
-                <Route path="/statistics" component={Statistics}/>
-            </Switch>
-        </main>
-    )
+class App extends Component {
+    componentDidMount() {
+        this.props.fetchVacancies()
+    }
+
+    render() {
+        return (
+            <main className="app-container">
+                <Header/>
+                <Switch>
+                    <Route exact path='/' component={VacanciesContainer}/>
+                    <Route path="/statistics" component={Statistics}/>
+                </Switch>
+            </main>
+        )
+    }
 }
 
-export default App;
+export default connect(null, {fetchVacancies}, null, {pure:false})(App);

@@ -22,6 +22,7 @@ ReactDOM.render(
             <MuiThemeProvider>
                 <App />
             </MuiThemeProvider>
-        </Provider></Router>, document.getElementById('root'));
+        </Provider>
+    </Router>, document.getElementById('root'));
     
 registerServiceWorker();
