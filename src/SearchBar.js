@@ -2,9 +2,9 @@ import React from 'react';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 
-const SearchBar = ({searchText}) => {
+const SearchBar = ({searchVacancies}) => {
     const handleChange = (e, newValue) => {
-        setTimeout(() => searchText(newValue), 200)
+        setTimeout(() => searchVacancies(newValue), 200)
     }
 
     return (

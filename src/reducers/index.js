@@ -1,13 +1,12 @@
 import { combineReducers } from 'redux';
 import { 
     RECIEVE_VACANCIES, 
-    SEARCH_TEXT, 
-    LOADING_STARTED } from '../actions';
+    LOADING_STARTED,
+    LOADING_ENDED } from '../actions';
 
 const initialState = {
     vacancies: [],
     isLoading: false,
-    searchText: ""
   }
 
 export const vacancies = (state = initialState.vacancies, action) => {
@@ -34,17 +33,8 @@ export const isLoading = (state = initialState.isLoading, action) => {
     switch (action.type) {
         case LOADING_STARTED:
             return true
-        case 'LOADING_ENDED':
+        case LOADING_ENDED:
             return false
-        default:
-            return state
-    }
-}
-
-const searchText = (state = initialState.searchText, action) => {
-    switch (action.type) {
-        case SEARCH_TEXT:
-            return action.text
         default:
             return state
     }
@@ -52,6 +42,5 @@ const searchText = (state = initialState.searchText, action) => {
 
 export default combineReducers({
     vacancies,
-    isLoading,
-    searchText
+    isLoading
 })
