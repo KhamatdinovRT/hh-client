@@ -11,10 +11,10 @@ import reducers from './reducers';
 import './index.css';
 import registerServiceWorker from './registerServiceWorker';
 
-const store = createStore (
+const store = createStore(
     reducers,
     applyMiddleware(logger, thunk)
-  )
+)
 
 ReactDOM.render(
     <Router>
@@ -24,5 +24,5 @@ ReactDOM.render(
             </MuiThemeProvider>
         </Provider>
     </Router>, document.getElementById('root'));
-    
+
 registerServiceWorker();

@@ -1,0 +1,15 @@
+.img-container {
+    position: absolute;
+    top: 6px;
+    right: 10px;
+}
+
+.img-container img {
+    max-width: 90px;
+    max-height: 67px;
+}
+
+.area-block {
+    margin-bottom: 0px;
+}
+

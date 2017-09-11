@@ -1,22 +1,26 @@
 import React from 'react';
 import SearchBar from './SearchBar';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import CircularProgress from 'material-ui/CircularProgress';
-import {searchVacancies} from './actions';
+import { fetchVacancies } from './actions';
 import VacanciesList from './VacanciesList';
-import './App.css';
 
-const VacanciesContainer = ({isLoading, vacancies, searchVacancies}) =>  {
+const VacanciesContainer = ({ isLoading, vacancies, fetchVacancies }) => {
+    const style = {
+        margin: '0 auto',
+        display: 'block'
+    }
+
     return (
         <div>
-            <SearchBar searchVacancies={searchVacancies}/>
+            <SearchBar fetchVacancies={fetchVacancies} />
             {isLoading ?
-            <CircularProgress style={{margin:'0 auto', display:'block'}}
+                <CircularProgress style={style}
                     color={'black'}
                     size={60}
                     thickness={7} />
-            :   
-            <VacanciesList vacancies={vacancies}/>
+                :
+                <VacanciesList vacancies={vacancies} />
             }
         </div>
     )
@@ -27,4 +31,4 @@ const mapStateToProps = (state) => ({
     isLoading: state.isLoading
 })
 
-export default connect(mapStateToProps, {searchVacancies})(VacanciesContainer);
+export default connect(mapStateToProps, { fetchVacancies })(VacanciesContainer);

@@ -1,17 +1,32 @@
 import React from 'react';
-import {Card, CardHeader, CardText} from 'material-ui/Card';
+import { Card, CardHeader, CardText } from 'material-ui/Card';
+import './Vacancy.css';
 
-const Vacancy = ({name, area, img, employer, salary, responsibility}) => {
+const Vacancy = ({ name, area, img, employer, salary, responsibility }) => {
+    const styles = {
+        cardStyle: {
+            marginBottom: '10px'
+        },
+        titleStyle: {
+            fontSize: '17px'
+        },
+        subtitleStyle: {
+            marginTop: '10px',
+            fontSize: '16px'
+        }
+    }
+
     const image = (
-            <div style={{position:"absolute", top: '6px', right:'10px' }}>
-                <img alt="" style={{maxWidth:'90px', maxHeight: '67px'}} src={img}/>
-            </div>
-        )
+        <div className='img-container'>
+            <img alt='' src={img} />
+        </div>
+    )
+
     return (
-        <Card style={{marginBottom:'10px'}}>
+        <Card style={styles.cardStyle}>
             <CardHeader
-                titleStyle={{fontSize:'17px'}}
-                subtitleStyle={{marginTop:'10px',fontSize:'16px'}}
+                titleStyle={styles.titleStyle}
+                subtitleStyle={styles.subtitleStyle}
                 title={name}
                 subtitle={salary}
                 children={image}
@@ -20,7 +35,7 @@ const Vacancy = ({name, area, img, employer, salary, responsibility}) => {
             />
             <CardText expandable={false}>
                 {responsibility}
-                <p style={{marginBottom:0}}>{`${area}, ${employer}`}</p>
+                <p className='area-block'>{`${area}, ${employer}`}</p>
             </CardText>
         </Card>
     )

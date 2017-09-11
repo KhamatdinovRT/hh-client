@@ -2,21 +2,20 @@ import React from 'react';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 
-const SearchBar = ({searchVacancies}) => {
+const SearchBar = ({ fetchVacancies }) => {
     const handleChange = (e, newValue) => {
-        setTimeout(() => searchVacancies(newValue), 200)
+        setTimeout(() => fetchVacancies(`https://api.hh.ru/vacancies?per_page=50&only_with_salary=true&area=113&text=${newValue}`), 500)
     }
-
+    
     return (
-        <div><Paper className="search-block" zDepth={1}>
+        <Paper className='search-block' zDepth={1}>
             <TextField
-                hintText="Поиск вакансий"
+                hintText='Поиск вакансий'
                 fullWidth={true}
                 underlineShow={false}
                 onChange={handleChange}
             />
         </Paper>
-        </div>
     )
 }
 

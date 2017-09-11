@@ -1,24 +1,24 @@
 main {
-  padding: 15px;
+    padding: 15px;
 }
 
 .app-container {
-  margin: 0 auto;
-  max-width: 50%;
-  margin-top: 64px; 
+    margin: 0 auto;
+    max-width: 50%;
+    margin-top: 64px; 
 }
 
 @media (max-width:768px) {
-  .app-container {
-      max-width: 100%;
-  }
+    .app-container {
+        max-width: 100%;
+    }
 }
 
 h1 {
-  text-align: center;
-  color: #515151;
+    text-align: center;
+    color: #515151;
 }
 
 hr {
-  margin-top: 20px;
+    margin-top: 20px;
 }

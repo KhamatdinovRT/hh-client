@@ -1,12 +1,12 @@
 import React from 'react';
-import {Doughnut, Bar} from 'react-chartjs-2';
-import {connect} from 'react-redux';
+import { Doughnut, Bar } from 'react-chartjs-2';
+import { connect } from 'react-redux';
 
-const Statistics = ({vacanciesByCity, vacanciesBySalary}) => {
-    const colors = ['#3366CC','#DC3912','#FF9900','#109618','#990099','#3B3EAC','#0099C6', '#2b294c', '#48594c',
-    '#9763cc','#DD4477', '#81F037', '#F06E37','#66AA00','#B82E2E','#316395','#994499','#22AA99','#AAAA11', '#7c262b',
-    '#6633CC','#E67300','#8B0707','#329262','#5574A6','#3B3EAC', '#37A0F0', '#EAF037', '#f442b0', '#ccae63', '#c95706' ]
-    
+const Statistics = ({ vacanciesByCity, vacanciesBySalary }) => {
+    const colors = ['#3366CC', '#DC3912', '#FF9900', '#109618', '#990099', '#3B3EAC', '#0099C6', '#2b294c', '#48594c',
+        '#9763cc', '#DD4477', '#81F037', '#F06E37', '#66AA00', '#B82E2E', '#316395', '#994499', '#22AA99', '#AAAA11', '#7c262b',
+        '#6633CC', '#E67300', '#8B0707', '#329262', '#5574A6', '#3B3EAC', '#37A0F0', '#EAF037', '#f442b0', '#ccae63', '#c95706']
+
     const dataVacanciesByCity = {
         labels: Object.keys(vacanciesByCity),
         datasets: [{
@@ -15,7 +15,7 @@ const Statistics = ({vacanciesByCity, vacanciesBySalary}) => {
             hoverBackgroundColor: colors
         }]
     };
-    
+
     const dataVacanciesBySalary = {
         labels: Object.keys(vacanciesBySalary),
         datasets: [{
@@ -23,7 +23,7 @@ const Statistics = ({vacanciesByCity, vacanciesBySalary}) => {
             backgroundColor: colors,
             data: Object.keys(vacanciesBySalary).map(item => vacanciesBySalary[item]),
         },
-    ]
+        ]
     };
 
     const options = {
@@ -34,8 +34,8 @@ const Statistics = ({vacanciesByCity, vacanciesBySalary}) => {
             yAxes: [{
                 ticks: {
                     beginAtZero: true
-                    }
                 }
+            }
             ]
         }
     }
@@ -43,36 +43,49 @@ const Statistics = ({vacanciesByCity, vacanciesBySalary}) => {
     return (
         <div>
             <h1>Количество вакансий по городам</h1>
-            <Doughnut data={dataVacanciesByCity}/>
-            <hr/>
-            <h1>Распределение количества вакансий по зарплате</h1> 
-            <Bar data={dataVacanciesBySalary} options={options}/>
+            <Doughnut data={dataVacanciesByCity} />
+            <hr />
+            <h1>Распределение количества вакансий по зарплате</h1>
+            <Bar data={dataVacanciesBySalary} options={options} />
         </div>
     )
 }
-const mapStateToProps = (state) => ({
-    vacanciesByCity: state.vacancies.reduce((obj, vacancy) => {
-        return {
-             ...obj,
-            [vacancy.area] : (obj[vacancy.area] || 0) + 1
-        }
-    }, {}),
 
-    vacanciesBySalary: state.vacancies.reduce((obj, vacancy) => {
-        const {salaryFrom, salaryTo} = vacancy
-        const salary = salaryFrom && salaryTo ? salaryTo:
-                       salaryFrom ? salaryFrom: salaryTo 
-        const key = salary >= 10000 && salary < 25000 ? 'От 10000':
-                    salary >= 25000 && salary < 40000 ? 'От 25000':
-                    salary >= 40000 && salary < 60000 ? 'От 40000':
-                    salary >= 60000 && salary < 80000 ? 'От 60000':
-                    salary >= 80000 && salary < 100000 ? 'От 80000':
-                    salary >= 100000 && salary < 150000 ? 'От 100000' :"От 150000" 
-        return {
-             ...obj,
-            [key] : (obj[key] || 0) + 1
-        }
-    }, {}),
+const salariesRange = [10000, 25000, 40000, 60000, 80000, 100000, 150000]
+
+const getVacanciesByCity = vacancies => vacancies.reduce((obj, vacancy) => {
+    return {
+        ...obj,
+        [vacancy.area]: (obj[vacancy.area] || 0) + 1
+    }
+}, {})
+
+const getKey = (salariesRange, salary) => {
+    for (let i = 0; i < salariesRange.length; i++) {
+        let lastRange = salariesRange[salariesRange.length - 1]
+        let currentRange = salariesRange[i]
+        let nextRange = salariesRange[i + 1]
+        if (salary >= currentRange && salary < nextRange)
+            return 'От ' + currentRange
+        else if (salary >= lastRange)
+            return 'От ' + lastRange
+    }
+}
+
+const getVacanciesBySalary = vacancies => vacancies.reduce((obj, vacancy) => {
+    const { salaryFrom, salaryTo } = vacancy
+    const salary = salaryFrom && salaryTo ? salaryTo :
+        salaryFrom ? salaryFrom : salaryTo
+    const key = getKey(salariesRange, salary)
+    return {
+        ...obj,
+        [key]: (obj[key] || 0) + 1
+    }
+}, {})
+
+const mapStateToProps = (state) => ({
+    vacanciesByCity: getVacanciesByCity(state.vacancies),
+    vacanciesBySalary: getVacanciesBySalary(state.vacancies)
 })
 
 export default connect(mapStateToProps)(Statistics);
