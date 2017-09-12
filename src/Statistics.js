@@ -22,8 +22,7 @@ const Statistics = ({ vacanciesByCity, vacanciesBySalary }) => {
             label: "Количество вакансий",
             backgroundColor: colors,
             data: Object.keys(vacanciesBySalary).map(item => vacanciesBySalary[item]),
-        },
-        ]
+        }]
     };
 
     const options = {
@@ -35,8 +34,7 @@ const Statistics = ({ vacanciesByCity, vacanciesBySalary }) => {
                 ticks: {
                     beginAtZero: true
                 }
-            }
-            ]
+            }]
         }
     }
 

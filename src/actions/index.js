@@ -16,6 +16,11 @@ export const loadingEnded = () => ({
     type: LOADING_ENDED
 })
 
+export const searchText = text => ({
+    type: SEARCH_TEXT, 
+    text
+})
+
 export const fetchVacancies = url => dispatch => {
     dispatch(loadingStarted())
     fetch(url)

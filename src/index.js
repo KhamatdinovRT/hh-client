@@ -5,7 +5,7 @@ import { applyMiddleware, createStore } from 'redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { logger } from 'redux-logger';
-import thunk from 'redux-thunk'
+import thunk from 'redux-thunk';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import reducers from './reducers';
 import './index.css';
