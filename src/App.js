@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
 import { fetchVacancies } from './actions';
+import { API_URL } from './index';
 import VacanciesContainer from './VacanciesContainer'
 import Header from './Header';
 import Statistics from './Statistics';
@@ -9,7 +10,7 @@ import './App.css';
 
 class App extends Component {
     componentDidMount() {
-        this.props.fetchVacancies('https://api.hh.ru/vacancies?per_page=50&only_with_salary=true&area=113')
+        this.props.fetchVacancies(API_URL)
     }
 
     render() {

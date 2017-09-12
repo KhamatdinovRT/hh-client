@@ -11,6 +11,8 @@ import reducers from './reducers';
 import './index.css';
 import registerServiceWorker from './registerServiceWorker';
 
+export const API_URL = 'https://api.hh.ru/vacancies?per_page=50&only_with_salary=true&area=113'
+
 const store = createStore(
     reducers,
     applyMiddleware(logger, thunk)

@@ -1,12 +1,13 @@
 import React from 'react';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
+import { API_URL } from './index';
 
 const SearchBar = ({ fetchVacancies, searchText, textToSearch }) => {
     const handleChange = (e, newValue) => {
         setTimeout(() => {
             searchText(newValue)
-            fetchVacancies(`https://api.hh.ru/vacancies?per_page=50&only_with_salary=true&area=113&text=${newValue}`)
+            fetchVacancies(API_URL + `&text=${newValue}`)
         }, 500)
     }
     

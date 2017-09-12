@@ -60,6 +60,7 @@ const getVacanciesByCity = vacancies => vacancies.reduce((obj, vacancy) => {
 
 const getKey = (salariesRange, salary) => {
     for (let i = 0; i < salariesRange.length; i++) {
+        let firstRange = salariesRange[0]
         let lastRange = salariesRange[salariesRange.length - 1]
         let currentRange = salariesRange[i]
         let nextRange = salariesRange[i + 1]
@@ -67,6 +68,8 @@ const getKey = (salariesRange, salary) => {
             return 'От ' + currentRange
         else if (salary >= lastRange)
             return 'От ' + lastRange
+        else if (salary < firstRange)
+            return 'До ' + firstRange
     }
 }
 
